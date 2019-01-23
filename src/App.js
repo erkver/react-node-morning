@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       characters: [],
       episodes: [],
-      display: "Characters"
+      display: "Characters",
+      name: ""
     }
   }
 
@@ -39,12 +40,31 @@ class App extends Component {
     this.setState({ display: "Episodes"})
   }
 
+  deleteChar = (id) => {
+    axios.delete(`/api/characters/${id}`).then(res => {
+      console.log(res);
+      this.setState({characters: res.data})
+    })
+  }
+
+  editChar = (e, id, name, species) => {
+    e.preventDefault();
+    axios.put(`/api/characters/${id}`, {name, species}).then(res => {
+      console.log(res);
+      this.setState({characters: res.data})
+    });
+  }
+
   render() {
     // Destructure our values off of state
-    const { characters, episodes, display } = this.state;
+    const { characters, episodes, display, edit } = this.state;
     // Map over both arrays and pass down the whole character or episode object into the child component.
     let charList = characters.map((character, i) => (
-      <Card character={character} key={i} />
+      <Card 
+        character={character} 
+        editChar={this.editChar} 
+        deleteChar={this.deleteChar} 
+        key={i} />
     ));
     let epList = episodes.map((episode, i) => (
       <Episode episode={episode} key={i} />
