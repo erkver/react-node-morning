@@ -1,11 +1,11 @@
 import React, {Component} from "react";
+import { Link } from "react-router-dom";
 import "./Card.css";
 
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      edit: false,
       name: props.character.name,
       species: props.character.species
     }
@@ -29,34 +29,15 @@ class Card extends Component {
   render() {
   // Destructure values of off props and our character object
   const { name, species, image, id } = this.props.character;
-  console.log(this.props);
+  // console.log(this.props);
   return (
     <div className="card-cont">
       <button onClick={() => {this.props.deleteChar(id); this.setState({edit: false})}}>X</button>
-      <button onClick={() => this.toggleEdit()}>Edit</button>
-      {!this.state.edit 
-        ? <div>
-            <p>{name}</p>
-            <p>{species}</p>
-         </div>
-        : <form onSubmit={e => { this.props.editChar(e, id, this.state.name, this.state.species); this.setState({ edit: false })}}>
-          <input
-            value={this.state.name}
-            onChange={e => this.handleChange(e)}
-            required
-            name="name"
-            type="text"
-          />
-          <input
-            value={this.state.species}
-            onChange={e => this.handleChange(e)}
-            required
-            name="species"
-            type="text"
-          />
-          <input type="submit" />
-        </form>
-      }
+      <Link to={`/edit/${id}`}>Edit</Link>
+      <div>
+          <p>{name}</p>
+          <p>{species}</p>
+        </div>
       <img src={image} alt={name} />
     </div>
   )
