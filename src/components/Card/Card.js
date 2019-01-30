@@ -35,7 +35,8 @@ class Card extends Component {
     <div className="card-cont">
       <button onClick={() => {this.props.deleteChar(id); this.setState({edit: false})}}>X</button>
       <button onClick={() => this.toggleEdit()}>Edit</button>
-      {!this.state.edit ?
+      {!this.state.edit 
+        ?
         <div>
           <p>{name}</p>
           <p>{species}</p>
@@ -54,7 +55,7 @@ class Card extends Component {
             required
             value={this.state.species} 
           />
-          <input type="submit" name="Submit Edit" />
+          <input type="submit" name="Submit" />
         </form>
       }
       <img src={image} alt={name} />

@@ -2,14 +2,13 @@ const axios = require("axios");
 
 module.exports = {
   getChars: (req, res) => {
-   const db = req.app.get('db');
-   db.get_characters()
-    .then(response => res.status(200).json(response))
-    .catch(err => {
-       res.status(500).send({ errorMessage: "Something went wrong" });
-       console.log(err);
-    });
-
+    const db = req.app.get('db');
+    db.get_characters()
+      .then(response => res.status(200).json(response))
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
   },
   getEps: (req, res) => {
     // Another get request to external API
@@ -43,9 +42,9 @@ module.exports = {
       // console.log(response);
       res.status(200).json(response);
     })
-    .catch(err => {
-      res.status(500).send({ errorMessage: "Something went wrong" });
-      console.log(err);
-    }); 
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
   }
 };
