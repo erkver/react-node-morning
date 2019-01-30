@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Define initial state
-let initialState = {
+const initialState = {
   characters: [],
   isLoading: false,
   err: false
