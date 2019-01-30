@@ -5,3 +5,19 @@
   align-items: center;
   justify-content: space-evenly;
 }
+
+button {
+  background: lightgreen;
+  text-decoration: none;
+  color: #282c34;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: .2s;
+}
+
+button:hover {
+  background: #282c34;
+  color: lightgreen;
+  transition: .2s;
+}

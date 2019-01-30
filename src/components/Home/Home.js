@@ -12,16 +12,14 @@ class Home extends Component {
     super();
     this.state = {
       characters: [],
-      episodes: [],
-      display: "Characters",
-      name: ""
+      home: true
     }
   }
 
   componentDidMount() {
     // Hit our API endpoints that we defined in our server's index.js file, make sure these are identical. Since we are conditionally rendering both, we can get the data for both on render.
     axios.get("/api/characters").then(res => {
-      // console.log(res.data);
+      console.log(res.data);
       this.setState({ characters: res.data })
     });
     axios.get('/api/episodes').then(res => {
@@ -57,36 +55,22 @@ class Home extends Component {
 
   render() {
     // Destructure our values off of state
-    const { characters, episodes, display, edit } = this.state;
+    const { characters } = this.state;
     // Map over both arrays and pass down the whole character or episode object into the child component.
     let charList = characters.map((character, i) => (
       <Card
         character={character}
         editChar={this.editChar}
         deleteChar={this.deleteChar}
-        key={i} />
-    ));
-    let epList = episodes.map((episode, i) => (
-      <Episode episode={episode} key={i} />
+        key={i} 
+      />
     ));
     return (
       <div className="Home">
         <Header
-          displayChars={this.displayChars}
-          displayEps={this.displayEps}
+          link={this.state.home}
         />
-        {/* Turnary that will either render the character list or episode list. If you are just trying to render the lists, you don't need JSX wrapper but if you are including a outer div or container HTML element to wrap all your items in, you will need to wrap the list variables in JSX
-        {display === "Characters"
-        ? <div className="char-cont">{charList}</div>
-        : <div className="ep-cont">{epList}</div>}
-
-        OR
-
-        {display === "Characters" ? charList : epList}
-          */}
-        {display === "Characters"
-          ? <div className="char-cont">{charList}</div>
-          : <div className="ep-cont">{epList}</div>}
+        <div className="char-cont">{charList}</div>
       </div>
     );
   }

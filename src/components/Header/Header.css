@@ -1,6 +1,7 @@
 .App-header {
   background-color: #282c34;
   min-height: 20vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,8 +18,9 @@
   margin-bottom: 10px;
 }
 
-button {
+.header-btn {
   background: lightgreen;
+  text-decoration: none;
   color: #282c34;
   border: none;
   padding: 10px;
@@ -26,7 +28,7 @@ button {
   transition: .2s;
 }
 
-button:hover {
+.header-btn:hover {
   background: #282c34;
   color: lightgreen;
   transition: .2s;

@@ -1,0 +1,4 @@
+DELETE FROM chars
+WHERE id = $1;
+SELECT * FROM chars
+ORDER BY id ASC;

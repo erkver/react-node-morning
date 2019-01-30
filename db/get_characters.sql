@@ -1,0 +1,2 @@
+SELECT * FROM chars
+ORDER BY id ASC;

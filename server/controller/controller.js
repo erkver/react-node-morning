@@ -1,38 +1,51 @@
 const axios = require("axios");
-let characters = [];
 
 module.exports = {
   getChars: (req, res) => {
-    // Get request to external API
-    axios.get("https://rickandmortyapi.com/api/character").then(response => {
-      // console.log(response.data);
-      characters = response.data.results;
-      res.status(200).json(characters);
-    }).catch(err => console.log(err));
-  },
-  getChar: (req, res) => {
-    axios.get(`https://rickandmortyapi.com/api/character/${req.params.id}`).then(response => {
-      console.log(response);
-      res.status(200).json(response.data);
-    })
+   const db = req.app.get('db');
+   db.get_characters()
+    .then(response => res.status(200).json(response))
+    .catch(err => {
+       res.status(500).send({ errorMessage: "Something went wrong" });
+       console.log(err);
+    });
+
   },
   getEps: (req, res) => {
     // Another get request to external API
-    axios.get("https://rickandmortyapi.com/api/episode").then(response => {
-      // console.log(response.data) 
-      res.status(200).json(response.data.results);
-    }).catch(err => console.log(err));
+    axios
+      .get("https://rickandmortyapi.com/api/episode")
+      .then(response => {
+        // console.log(response.data)
+        res.status(200).json(response.data.results);
+      })
+      .catch(err => {
+        res.status(500).send({ errorMessage: "Something went wrong" });
+        console.log(err);
+      });
   },
   deleteChar: (req, res) => {
-    let index = characters.findIndex(character => character.id == req.params.id);
-    characters.splice(index, 1);
-    res.status(200).json(characters);
+    const db = req.app.get('db');
+    const { id } = req.params;
+    db.delete_character(+id).then(response => {
+      // console.log(response);
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    });
   },
   editChar: (req, res) => {
+    const { id } = req.params;
     const { name, species } = req.body;
-    let index = characters.findIndex(character => character.id == req.params.id);
-    characters[index].name = name;
-    characters[index].species = species;
-    res.status(200).json(characters);
+    req.app.get('db').edit_character([+id, name, species]).then(response => {
+      // console.log(response);
+      res.status(200).json(response);
+    })
+    .catch(err => {
+      res.status(500).send({ errorMessage: "Something went wrong" });
+      console.log(err);
+    }); 
   }
-}
+};

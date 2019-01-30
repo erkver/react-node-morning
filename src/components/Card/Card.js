@@ -7,7 +7,8 @@ class Card extends Component {
     super(props);
     this.state = {
       name: props.character.name,
-      species: props.character.species
+      species: props.character.species,
+      edit: false
     }
   }
 
@@ -33,15 +34,32 @@ class Card extends Component {
   return (
     <div className="card-cont">
       <button onClick={() => {this.props.deleteChar(id); this.setState({edit: false})}}>X</button>
-      <Link to={`/edit/${id}`}>Edit</Link>
-      <div>
+      <button onClick={() => this.toggleEdit()}>Edit</button>
+      {!this.state.edit ?
+        <div>
           <p>{name}</p>
           <p>{species}</p>
         </div>
+        : 
+        <form className="edit-form" onSubmit={e => {this.props.editChar(e, id, this.state.name, this.state.species); this.setState({edit: false})}}>
+          <input
+            type="text"
+            onChange={e => this.setState({name: e.target.value})}
+            required
+            value={this.state.name} 
+          />
+          <input
+            type="text"
+            onChange={e => this.setState({species: e.target.value})}
+            required
+            value={this.state.species} 
+          />
+          <input type="submit" name="Submit Edit" />
+        </form>
+      }
       <img src={image} alt={name} />
     </div>
-  )
-}
+  )}
 }
 
 export default Card;

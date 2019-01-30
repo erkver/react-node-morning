@@ -1,14 +1,37 @@
-import React from "react";
+import React,{ Component } from "react";
 import "./Episode.css";
+import axios from "axios";
+import Header from "../Header/Header";
 
-const Card = props => {
-  // Destructure values of off props and our episode object
-  const { name, episode } = props.episode;
-  return (
-    <div className="single-ep-cont">
-      <p>{name} - {episode}</p>
-    </div>
-  );
+class Episode extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      episodes: []
+    }
+  }
+
+  componentDidMount() {
+    axios.get('/api/episodes').then(res => {
+      this.setState({episodes: res.data})
+    }).catch(err => console.log(err));
+  } 
+
+  render() {
+    let episodeList = this.state.episodes.map((ep, i) => (
+      <div className="ep-cont" key={i}>
+        <p>
+          {ep.name} - {ep.episode}
+        </p>
+      </div>
+    ));
+    return (
+      <div className="single-ep-cont">
+        <Header />
+        {episodeList}
+      </div>
+    )
+  }
 };
 
-export default Card;
+export default Episode;
