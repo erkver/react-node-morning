@@ -91,6 +91,7 @@ export  default  App;
 8. Now follow the same steps for the DELETE and PUT functions to change the vanilla JS to database calls. 
 9. Test endpoints in Postman to make sure all data is coming in as expected.
 ## Part 5 Steps - Adding Redux
+### Front End
 1. In your terminal install redux, react-redux, and redux-promise middleware.
 2. Create a folder in your src folder called ducks. Add 3 files - one called store.js, another called epReducer, the last named charReducer. 
 3. In our store import createStore, applyMiddleWare and combineReducers from redux. Also, import promiseMiddleware from redux-promise-middleware and import our reducers.
