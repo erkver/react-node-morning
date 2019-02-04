@@ -118,3 +118,14 @@ export default connect(...)(Home);
 ```
 16. Delete our characters array on state and our API call in our componentDidMount. Call the getChars function in our componentDidMount from props. 
 17. Be sure to update the map function to map over characters in props not in state.
+## Part 6 Steps - Adding Sessions
+### Back End
+1. Install an npm package called express-session and require it in your server's index file. 
+2. Now have your app use the session middleware in your index file that takes in an object with a secret key, a resave key, and a saveUninitialized key. 
+	- Secret should be equal to a variable defined in your .env file
+	- Resave and saveUninitialized should both be equal to false
+3. Now create a file in your controller folder called auth controller. We'll then create register, login, singout, and getUser functions. 
+4. Register should add a user to the database then after adding that user,  create a new user key on req.session and set it equal to the response. Then create a POST endpoint that handles this register function.
+5. Login should get all the users from our database and compare then usernames and passwords to the username and password we'll be getting from our request body. If there is a match, then return that user otherwise return a message letting the user know to register. We will need a POST endpoint for this as well.
+6. GetUser should get the user from our session and return it, this will be a GET endpoint.
+7. Signout should terminate the user session and return a new session object, this will be a POST endpoint as well. 
