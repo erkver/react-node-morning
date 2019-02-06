@@ -1,16 +1,16 @@
-.card-cont {
-  margin: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
-  font-weight: bold;
-  background: lightgreen;
+.form-cont {
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
   justify-content: space-evenly;
+  border: 1px solid #282c34;
+  width: 35%;
+  margin: auto;
+  height: 40vh;
+  background: lightgreen;
 }
 
-.edit-btn {
+.submit-btn {
   color: lightgreen;
   text-decoration: none;
   background: #282c34;
@@ -18,11 +18,9 @@
   padding: 10px;
   border-radius: 5px;
   transition: .2s;
-  width: 20%;
-  margin: 10px auto 0 auto;
 }
 
-.edit-btn:hover {
+.submit-btn:hover {
   color: #282c34;
   background: lightgreen;
   transition: .2s;

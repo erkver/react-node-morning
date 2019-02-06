@@ -4,7 +4,7 @@ const app = express();
 const { json } = require("body-parser");
 const massive = require('massive');
 const session = require('express-session');
-const { getChars, getEps, deleteChar, editChar } = require('./controller/controller');
+const { getCharacters, getCharacter, getEpisodes, deleteCharacter, editCharacter, } = require('./controller/controller');
 const { register, login, getUser, signout } = require('./controller/auth_controller');
 const port = 3001;
 
@@ -24,15 +24,16 @@ app.use(
 
 
 // Routes - MUST BE THE SAME ON FRONT END. BE SURE TO ADD PROXY IN PACKAGE.JSON
-app.get("/api/characters", getChars);
-app.delete("/api/characters/:id", deleteChar);
-app.put("/api/characters/:id", editChar);
-app.get("/api/episodes", getEps);
+app.get("/api/characters", getCharacters);
+app.get("/api/characters/:id", getCharacter);
+app.delete("/api/characters/:id", deleteCharacter);
+app.put("/api/characters/:id", editCharacter);
+app.get("/api/episodes", getEpisodes);
 
-app.post('/api/register', register);
-app.post('/api/login', login);
-app.get('/api/user', getUser);
-app.post('/api/signout', signout)
+app.post('/auth/register', register);
+app.post('/auth/login', login);
+app.get('/auth/user', getUser);
+app.post('/auth/signout', signout)
 
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

@@ -4,12 +4,16 @@ import axios from "axios";
 const initialState = {
   characters: [],
   isLoading: false,
-  err: false
+  err: false,
+  name: "",
+  species: "",
+  url: ""
 }
 
 // Define our action types
 const GET_CHARACTERS = "GET_CHARACTERS"
 const DELETE_CHARACTER = "DELETE_CHARACTER"
+const HANDLE_CHANGE = "HANDLE_CHANGE";
 
 // Define our action creators
 export const getChars = () => {
@@ -23,6 +27,13 @@ export const deleteChar = id => {
   return {
     type: DELETE_CHARACTER,
     payload: axios.delete(`/api/characters/${id}`)
+  }
+}
+
+export const handleChange = (field, value) => {
+  return {
+    type: HANDLE_CHANGE,
+    payload: {field, value}
   }
 }
 
@@ -50,6 +61,11 @@ export default function charReducer(state = initialState, action) {
         ...state,
         characters: action.payload.data
       };
+    case HANDLE_CHANGE: 
+      return {
+        ...state,
+        [action.payload.field]: action.payload.value
+      }
     default: 
       return state;
   }
